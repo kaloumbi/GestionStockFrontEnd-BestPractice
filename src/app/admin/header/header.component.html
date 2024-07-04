@@ -1,0 +1,25 @@
+ <header>
+    <p><label for="menu"><span class="fa fa-bars"></span></label><span
+            class="accueil">Accueil</span></p>
+
+    <!-- <div class="search-wrapper">
+        <span class="fa fa-search"></span>
+        <input type="search" name="search" placeholder="recherche" #searchBox (keyup)="this.searchTerms.next(searchBox.value)" />
+
+    </div> -->
+
+    <div class="user-wrapper" id="dropdown">
+        <div>
+            <h4>{{userInfos.prenom}} {{userInfos.nom}} </h4>
+            <small>{{userInfos.role}}</small>
+        </div>
+
+        <img src="assets/img/user.jpg" width="30" height="30"
+            class="logo-admin">
+        <div class="dropdown-content">
+            <!--<p>Mon profil</p>-->
+            <span (click)="deconnexion()">Deconnexion</span>
+        </div>
+
+    </div>
+</header>

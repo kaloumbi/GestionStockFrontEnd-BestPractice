@@ -1,0 +1,245 @@
+
+<body>
+    <input type="checkbox" id="menu" name>
+    <app-sidebar></app-sidebar>
+
+    <div class="content">
+
+        <!--Header-->
+        <app-header></app-header>
+
+        <main style="margin-top:100px">
+            <div class="cards">
+                <div class="card-single">
+                    <div>
+                        <h2>{{totalPriceArticleSold}}</h2>
+                        <small>Montant Articles Vendus </small>
+                    </div>
+                    <div>
+                        <span class="fa fa-shopping-cart"></span>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div>
+                        <h2>+{{stockArticlesDispo}}</h2>
+                        <small>Stock Articles Actifs</small>
+                    </div>
+                    <div>
+                        <span class="fa fa-newspaper-o"></span>
+                    </div>
+                </div>
+                <div class="card-single">
+                    <div>
+                        <h2>{{stockArticles}}</h2>
+                        <small>Total Articles</small>
+                    </div>
+                    <div>
+                        <span class="fa fa-outdent"></span>
+                    </div>
+                </div>
+                <div class="card-single">
+                    <div>
+                        <h2>{{totalAmountArticleSold}}</h2>
+                        <small>Quantity Articles Vendus</small>
+                    </div>
+                    <div>
+                        <span class="fa fa-group"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="composant">
+                <div class="ventes">
+                    <div class="case">
+                        <div class="header-case">
+                            <h2>Listes Des Articles</h2>
+                            <!--
+                                <div class="search-wrapper">
+                                    <span class="fa fa-search"></span>
+                                    <input type="search" name="search" placeholder="recherche" #searchBox (keyup)="this.searchTerms.next(searchBox.value)" />
+
+                                </div>
+                            -->
+                            @if (!isActive) {
+
+                            <button (click)="onActive()" class="button" data-bs-toggle="modal" data-bs-target="#myModal">add new<span
+                                    class="fa fa-arrow-right"></span></button>
+                            }
+
+                        </div>
+
+                        @if (isActive) {
+
+                        <div class="modal" id="myModal">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="h5 modal-title">{{titleHeader}} </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer" (click)="OffActive()"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form [formGroup]="articleForm">
+                                            <div class="mb-3">
+                                                <label for="nomProduit" class="form-label">Nom du produit</label>
+                                                <input formControlName="nom" type="text" class="form-control" id="nomProduit" placeholder="Entrez le nom du produit" required="true">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="prixProduit" class="form-label">Prix</label>
+                                                <input formControlName="prix" type="number" class="form-control" id="prixProduit" placeholder="Entrez le prix du produit">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="quantiteProduit" class="form-label">Quantité disponible</label>
+                                                <input formControlName="qte_dispo" type="number" class="form-control" id="quantiteProduit" placeholder="Entrez la quantité disponible">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="utilisateurProduit" class="form-label">Utilisateur</label>
+                                                <input formControlName="id_USER" type="text" class="form-control" id="utilisateurProduit" placeholder="Entrez l'utilisateur">
+                                            </div>
+
+                                            <button type="submit" (click)="titleButton === 'Modifier' ? editArticle() : articlSubmit()" class="btn btn-primary">{{titleButton}} </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        }
+
+                        <div class="body-case">
+                            <div class="tableau">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dttrigger" class="row-border hover">
+                                    <thead>
+                                        <tr>
+                                            <td>Nom Article</td>
+                                            <td>Prix</td>
+                                            <td>Quantity</td>
+                                            <td>Etat</td>
+                                            <td>Utilisateur</td>
+                                            <td>Action</td>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (artItem of myArticles; track artItem) {
+                                            <tr>
+
+                                                <td>{{artItem.nom}}</td>
+                                                <td>{{artItem.prix}}</td>
+                                                <td>{{artItem.qte_dispo}}</td>
+                                                <td>{{artItem.etat_article}}</td>
+                                                <td>{{artItem.id_USER}}</td>
+
+                                                <td>
+                                                    <button (click)="detailArticle(artItem.id_article)" type="button" class="btn btn-danger">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                    <button (click)="onActive(artItem.id_article)" class="button" data-bs-toggle="modal" data-bs-target="#myModal" type="button" class="btn btn-primary">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                    <button (click)="deleteArticle(artItem.id_article)" type="button" class="btn btn-danger">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+
+                                                </td>
+                                            </tr>
+                                        }
+
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stock">
+                    <div class="case">
+                        <div class="header-case bg-blue-100">
+                            <h2>Clients Fidèles</h2>
+                            <!-- <p-calendar /> -->
+                        </div>
+                        <div class="body-case">
+                            <div class="all-users">
+                                <div class="infos">
+                                    <img src width="30"
+                                        height="30">
+                                    <div>
+                                        <h4>Omar</h4>
+                                        <small>Embulant</small>
+                                    </div>
+                                </div>
+
+                                <div class="user-contact">
+                                    <span class="fa fa-facebook"></span>
+                                    <span class="fa fa-whatsapp"></span>
+                                    <span class="fa fa-phone"></span>
+                                </div>
+                            </div>
+
+                            <div class="all-users">
+                                <div class="infos">
+                                    <img src width="30"
+                                        height="30">
+                                    <div>
+                                        <h4>Omar</h4>
+                                        <small>Embulant</small>
+                                    </div>
+                                </div>
+
+                                <div class="user-contact">
+                                    <span class="fa fa-facebook"></span>
+                                    <span class="fa fa-whatsapp"></span>
+                                    <span class="fa fa-phone"></span>
+                                </div>
+                            </div>
+
+                            <div class="all-users">
+                                <div class="infos">
+                                    <img src width="30"
+                                        height="30">
+                                    <div>
+                                        <h4>Omar</h4>
+                                        <small>Embulant</small>
+                                    </div>
+                                </div>
+
+                                <div class="user-contact">
+                                    <span class="fa fa-facebook"></span>
+                                    <span class="fa fa-whatsapp"></span>
+                                    <span class="fa fa-phone"></span>
+                                </div>
+                            </div>
+
+                            <div class="all-users">
+                                <div class="infos">
+                                    <img src width="30"
+                                        height="30">
+                                    <div>
+                                        <h4>Omar</h4>
+                                        <small>Embulant</small>
+                                    </div>
+                                </div>
+
+                                <div class="user-contact">
+                                    <span class="fa fa-facebook"></span>
+                                    <span class="fa fa-whatsapp"></span>
+                                    <span class="fa fa-phone"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn">voir plus<span
+                                class="fa fa-arrow-right"></span></button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+
+@if (isActive) {
+<div (onClick)="OffActive">
+    <button>click here</button>
+</div>
+}

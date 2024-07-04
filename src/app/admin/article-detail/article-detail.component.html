@@ -1,0 +1,44 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+  <div class="container detailArticle my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg">
+          <div class="card-header text-white text-center py-4">
+            <h1 class="mb-0">Détails de l'article "{{ article?.nom }}"</h1>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="font-weight-bold">ID de l'article:</span>
+                <span>{{ article?.id_article }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="font-weight-bold">Nom de l'article:</span>
+                <span>{{ article?.nom }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="font-weight-bold">Prix de l'article:</span>
+                <span>{{ article?.prix }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="font-weight-bold">Quantité disponible:</span>
+                <span>{{ article?.qte_dispo }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="font-weight-bold">État de l'article:</span>
+                <span>{{ article?.etat_article }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="font-weight-bold">ID Utilisateur:</span>
+                <span>{{ article?.id_USER }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer bg-light text-center py-3">
+            <a (click)="goBack()" class="btn">Retour à la liste</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
